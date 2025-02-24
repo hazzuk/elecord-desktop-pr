@@ -3,7 +3,7 @@
     "productName": "elecord",
     "main": "lib/electron-main.js",
     "exports": "./lib/electron-main.js",
-    "version": "1.11.92",
+    "version": "2.1.0",
     "description": "Electron wrapper for elecord-web",
     "author": "hazzuk",
     "homepage": "https://elecord.app",
