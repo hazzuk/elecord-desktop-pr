@@ -15,7 +15,7 @@
 
 ```
 yarn install
-yarn run fetch --noverify --cfgdir ".\element.io\release\"
+yarn run fetch --noverify --cfgdir ".\elecord.app\release\"
 yarn run build
 ```
 
