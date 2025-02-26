@@ -223,7 +223,7 @@ async function setupGlobals(): Promise<void> {
 
     // The tray icon
     // It's important to call `path.join` so we don't end up with the packaged asar in the final path.
-    const iconFile = `element.${process.platform === "win32" ? "ico" : "png"}`;
+    const iconFile = `elecord.${process.platform === "win32" ? "ico" : "png"}`;
     global.trayConfig = {
         icon_path: path.join(resPath, "img", iconFile),
         brand: global.vectorConfig.brand || "Element",
