@@ -1,5 +1,6 @@
 {
     "web_base_url": "https://web.elecord.app",
+    "update_base_url": "https://packages.elecord.app/desktop/update/",
     "default_server_config": {
         "m.homeserver": {
             "base_url": "https://matrix.org"
