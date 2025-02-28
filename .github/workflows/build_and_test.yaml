@@ -2,7 +2,8 @@ name: Build elecord-desktop
 on:
     # pull_request: {}
     push:
-        branches: [develop, staging, master]
+        branches: [release]
+    workflow_dispatch: {}
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
@@ -48,6 +49,7 @@ jobs:
     #     uses: ./.github/workflows/build_macos.yaml
 
     release:
+        # needs: [windows, linux, macos]
         needs: [windows]
         name: Create GitHub release
         uses: ./.github/workflows/build_release.yaml

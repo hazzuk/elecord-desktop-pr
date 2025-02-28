@@ -67,6 +67,7 @@ jobs:
               with:
                   token: ${{ secrets.ELECORD_DESKTOP_TOKEN }}
                   commit-message: "chore(root): update redirects for ${{ env.VERSION }}"
+                  base: master
                   branch: update-redirects
                   title: "Update redirects for ${{ env.VERSION }}"
                   body: |
