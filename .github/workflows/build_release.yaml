@@ -17,16 +17,14 @@ jobs:
                   echo "VERSION: $version"
                   echo "VERSION=$version" >> $GITHUB_ENV
 
+            - name: Create artifacts directory
+              run: |
+                  mkdir -p ./artifacts
+
             - uses: actions/download-artifact@v4
               with:
-                  name: win-x64 # .zip from build_windows
-
-            - name: Extract artifacts
-              run: |
-                  ls
-                  mkdir -p ./artifacts
-                  unzip -q win-x64 -d ./artifacts/win-x64
-                  ls ./artifacts/win-x64/squirrel-windows
+                  name: win-x64 # .zip from build_windows workflow
+                  path: ./artifacts # downloads and extracts files here
 
             - name: Create release
               uses: softprops/action-gh-release@v2
@@ -36,8 +34,8 @@ jobs:
                   draft: false
                   prerelease: false
                   files: |
-                      ./artifacts/win-x64/squirrel-windows/elecord Setup ${{ env.VERSION }}.exe
-                      ./artifacts/win-x64/squirrel-windows/elecord-desktop-${{ env.VERSION }}-full.nupkg
-                      ./artifacts/win-x64/squirrel-windows/RELEASES
+                      ./artifacts/squirrel-windows/elecord Setup ${{ env.VERSION }}.exe
+                      ./artifacts/squirrel-windows/elecord-desktop-${{ env.VERSION }}-full.nupkg
+                      ./artifacts/squirrel-windows/RELEASES
                   body: "[See the full elecord changelog](https://github.com/elecordapp/elecord-web/releases/tag/v${{ env.VERSION }})"
                   token: ${{ secrets.GH_SECRET_TOKEN }}
