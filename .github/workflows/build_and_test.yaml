@@ -51,8 +51,12 @@ jobs:
         needs: [windows]
         name: Create GitHub release
         uses: ./.github/workflows/build_release.yaml
+        secrets:
+            ELECORD_DESKTOP_TOKEN: ${{ secrets.ELECORD_DESKTOP_TOKEN }}
 
     redirects:
         needs: [release]
         name: Update packages.elecord.app
         uses: ./.github/workflows/build_redirects.yaml
+        secrets:
+            ELECORD_DESKTOP_TOKEN: ${{ secrets.ELECORD_DESKTOP_TOKEN }}
