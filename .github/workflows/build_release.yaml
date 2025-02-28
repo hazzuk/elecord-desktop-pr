@@ -23,8 +23,9 @@ jobs:
 
             - name: Extract artifacts
               run: |
+                  ls
                   mkdir -p ./artifacts
-                  unzip -q win-x64.zip -d ./artifacts/win-x64
+                  unzip -q win-x64 -d ./artifacts/win-x64
                   ls ./artifacts/win-x64/squirrel-windows
 
             - name: Create release
