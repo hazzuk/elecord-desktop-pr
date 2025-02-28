@@ -2,7 +2,10 @@
 # It adds new redirects and replaces relevant files.
 
 on:
-    workflow_call: {}
+    workflow_call:
+        secrets:
+            ELECORD_DESKTOP_TOKEN:
+                required: true
 env:
     DOWNLOAD_URL: "https://github.com/elecordapp/elecord-desktop/releases/download/v"
     WIN_UPDATE_PATH: "/desktop/update/win32/x64"

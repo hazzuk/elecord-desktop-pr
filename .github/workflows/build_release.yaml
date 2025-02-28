@@ -1,7 +1,10 @@
 # This action uploads the newly built artifacts as a GitHub release.
 
 on:
-    workflow_call: {}
+    workflow_call:
+        secrets:
+            ELECORD_DESKTOP_TOKEN:
+                required: true
 # permissions:
 #     contents: write
 jobs:
