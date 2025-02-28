@@ -29,6 +29,7 @@ jobs:
             - name: Create release
               uses: softprops/action-gh-release@v2
               with:
+                  token: ${{ secrets.ELECORD_DESKTOP_TOKEN }}
                   tag_name: v${{ env.VERSION }}
                   name: v${{ env.VERSION }}
                   draft: false
@@ -38,4 +39,3 @@ jobs:
                       ./artifacts/squirrel-windows/elecord-desktop-${{ env.VERSION }}-full.nupkg
                       ./artifacts/squirrel-windows/RELEASES
                   body: "[See the full elecord changelog](https://github.com/elecordapp/elecord-web/releases/tag/v${{ env.VERSION }})"
-                  token: ${{ secrets.GH_SECRET_TOKEN }}
