@@ -2,8 +2,8 @@
 
 on:
     workflow_call: {}
-permissions:
-    contents: write
+# permissions:
+#     contents: write
 jobs:
     release:
         name: Release
@@ -39,3 +39,4 @@ jobs:
                       ./artifacts/win-x64/squirrel-windows/elecord-desktop-${{ env.VERSION }}-full.nupkg
                       ./artifacts/win-x64/squirrel-windows/RELEASES
                   body: "[See the full elecord changelog](https://github.com/elecordapp/elecord-web/releases/tag/v${{ env.VERSION }})"
+                  token: ${{ secrets.GH_SECRET_TOKEN }}

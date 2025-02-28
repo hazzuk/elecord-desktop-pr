@@ -7,9 +7,9 @@ env:
     DOWNLOAD_URL: "https://github.com/elecordapp/elecord-desktop/releases/download/v"
     WIN_UPDATE_PATH: "/desktop/update/win32/x64"
     WIN_INSTALL_PATH: "/desktop/install/win32/x64"
-permissions:
-    contents: write
-    pull-requests: write
+# permissions:
+#     contents: write
+#     pull-requests: write
 jobs:
     redirects:
         name: Update packages.elecord.app
@@ -60,3 +60,4 @@ jobs:
                       - https://packages.elecord.app${{ env.WIN_INSTALL_PATH }}/elecord%20Setup%20${{ env.VERSION }}.exe
                       - https://packages.elecord.app${{ env.WIN_UPDATE_PATH }}/elecord-desktop-${{ env.VERSION }}-full.nupkg
                       - https://packages.elecord.app${{ env.WIN_UPDATE_PATH }}/RELEASES
+                  token: ${{ secrets.GH_SECRET_TOKEN }}
