@@ -51,6 +51,7 @@ jobs:
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v7
               with:
+                  token: ${{ secrets.GH_SECRET_TOKEN }}
                   commit-message: "chore(root): update redirects for ${{ env.VERSION }}"
                   branch: update-redirects
                   title: "Update redirects for ${{ env.VERSION }}"
@@ -60,4 +61,3 @@ jobs:
                       - https://packages.elecord.app${{ env.WIN_INSTALL_PATH }}/elecord%20Setup%20${{ env.VERSION }}.exe
                       - https://packages.elecord.app${{ env.WIN_UPDATE_PATH }}/elecord-desktop-${{ env.VERSION }}-full.nupkg
                       - https://packages.elecord.app${{ env.WIN_UPDATE_PATH }}/RELEASES
-                  token: ${{ secrets.GH_SECRET_TOKEN }}
