@@ -6,7 +6,6 @@ on:
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
-permissions: {} # No permissions required
 jobs:
     fetch:
         uses: ./.github/workflows/build_prepare.yaml
@@ -46,3 +45,13 @@ jobs:
     #     needs: fetch
     #     name: macOS
     #     uses: ./.github/workflows/build_macos.yaml
+
+    release:
+        needs: [windows]
+        name: Create GitHub release
+        uses: ./.github/workflows/build_release.yaml
+
+    redirects:
+        needs: [release]
+        name: Update packages.elecord.app
+        uses: ./.github/workflows/build_redirects.yaml

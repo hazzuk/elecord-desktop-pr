@@ -1,0 +1,41 @@
+# This action uploads the newly built artifacts as a GitHub release.
+
+on:
+    workflow_call: {}
+permissions:
+    contents: write
+jobs:
+    release:
+        name: Release
+        runs-on: ubuntu-24.04
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Get app version
+              run: |
+                  version=$(jq -r '.version' package.json)
+                  echo "VERSION: $version"
+                  echo "VERSION=$version" >> $GITHUB_ENV
+
+            - uses: actions/download-artifact@v4
+              with:
+                  name: win-x64 # .zip from build_windows
+
+            - name: Extract artifacts
+              run: |
+                  mkdir -p ./artifacts
+                  unzip -q win-x64.zip -d ./artifacts/win-x64
+                  ls ./artifacts/win-x64/squirrel-windows
+
+            - name: Create release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: v${{ env.VERSION }}
+                  name: v${{ env.VERSION }}
+                  draft: false
+                  prerelease: false
+                  files: |
+                      ./artifacts/win-x64/squirrel-windows/elecord Setup ${{ env.VERSION }}.exe
+                      ./artifacts/win-x64/squirrel-windows/elecord-desktop-${{ env.VERSION }}-full.nupkg
+                      ./artifacts/win-x64/squirrel-windows/RELEASES
+                  body: "[See the full elecord changelog](https://github.com/elecordapp/elecord-web/releases/tag/v${{ env.VERSION }})"
