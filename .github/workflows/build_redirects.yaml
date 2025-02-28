@@ -10,6 +10,7 @@ env:
     DOWNLOAD_URL: "https://github.com/elecordapp/elecord-desktop/releases/download/v"
     WIN_UPDATE_PATH: "/desktop/update/win32/x64"
     WIN_INSTALL_PATH: "/desktop/install/win32/x64"
+    SKIP_REDIRECTS: false
 # permissions:
 #     contents: write
 #     pull-requests: write
@@ -41,12 +42,22 @@ jobs:
                   ${{ env.FULL_DOWNLOAD_URL }}/elecord.Setup.${{ env.VERSION }}.exe#" \
                   ./root/_redirects
 
+            - name: Check existing redirects for current version
+              # check if _redirects already contains any refferences to the current version
+              run: |
+                  if grep -q ${{ env.VERSION }} ./root/_redirects; then
+                      echo "Redirects for ${{ env.VERSION }} already exist, skipping next steps"
+                      echo "SKIP_REDIRECTS=true" >> $GITHUB_ENV
+                  fi
+
             - name: Add installer redirect
+              if: env.SKIP_REDIRECTS != 'true'
               run: |
                   echo "${{ env.WIN_INSTALL_PATH }}/elecord%20Setup%20${{ env.VERSION }}.exe \
                   ${{ env.FULL_DOWNLOAD_URL }}/elecord.Setup.${{ env.VERSION }}.exe" >> ./root/_redirects
 
             - name: Add updater redirect
+              if: env.SKIP_REDIRECTS != 'true'
               run: |
                   echo "${{ env.WIN_UPDATE_PATH }}/elecord-desktop-${{ env.VERSION }}-full.nupkg \
                   ${{ env.FULL_DOWNLOAD_URL }}/elecord-desktop-${{ env.VERSION }}-full.nupkg" >> ./root/_redirects
