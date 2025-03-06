@@ -35,20 +35,20 @@ jobs:
                   curl -L "${{ env.FULL_DOWNLOAD_URL }}/RELEASES" -o ./artifacts/RELEASES.txt
                   cp -f ./artifacts/RELEASES.txt ./root${{ env.WIN_UPDATE_PATH }}/RELEASES.txt
 
-            - name: Modify versionless redirect
-              # replace the first line with the latest version redirect
-              run: |
-                  sed -i "1s#.*#${{ env.WIN_INSTALL_PATH }}/elecord%20Setup.exe \
-                  ${{ env.FULL_DOWNLOAD_URL }}/elecord.Setup.${{ env.VERSION }}.exe#" \
-                  ./root/_redirects
-
             - name: Check existing redirects for current version
               # check if _redirects already contains any refferences to the current version
               run: |
                   if grep -q ${{ env.VERSION }} ./root/_redirects; then
-                      echo "Redirects for ${{ env.VERSION }} already exist, skipping next steps"
+                      echo "Redirects for ${{ env.VERSION }} already exist, skipping new redirects"
                       echo "SKIP_REDIRECTS=true" >> $GITHUB_ENV
                   fi
+
+            - name: Modify versionless redirect
+            # replace the first line with the latest version redirect
+            run: |
+                sed -i "1s#.*#${{ env.WIN_INSTALL_PATH }}/elecord%20Setup.exe \
+                ${{ env.FULL_DOWNLOAD_URL }}/elecord.Setup.${{ env.VERSION }}.exe#" \
+                ./root/_redirects
 
             - name: Add installer redirect
               if: env.SKIP_REDIRECTS != 'true'
