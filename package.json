@@ -4,8 +4,8 @@
     "main": "lib/electron-main.js",
     "exports": "./lib/electron-main.js",
     "version": "2.2.0",
-    "description": "Electron wrapper for elecord-web",
-    "author": "hazzuk",
+    "description": "Privacy focused chat app for gamers",
+    "author": "elecord",
     "homepage": "https://elecord.app",
     "repository": {
         "type": "git",
